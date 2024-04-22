@@ -48,13 +48,13 @@
   align-items: start;
 }
 
-.color-input{
+.flex-input{
   display: flex;
   gap: 0.5rem;
   align-items: center;
 
 }
 
-.color-input input{
+.flex-input input{
   width: 5rem;
 }

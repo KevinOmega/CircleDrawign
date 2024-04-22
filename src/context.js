@@ -10,7 +10,7 @@ const AppProvider = ({ children }) => {
   const [sizeMatrix,setSizeMatrix] = useState(10);
   const [matrix,setMatrix] = useState(useGenerateMatrix(sizeMatrix));
   const [algorithms,setAlgorithms] = useState('1');
-  const [parameter,setParameters] = useState({
+  const [parameters,setParameters] = useState({
     triangle : {x1 : 0,y1 : 0,x2 : Math.floor(sizeMatrix/2),y2 : Math.floor(sizeMatrix/2),x3 : 0,y3 : sizeMatrix-1,},
     circle : {xc : Math.floor(sizeMatrix/2),yc : Math.floor(sizeMatrix/2), r: Math.floor(sizeMatrix/2)}
   })
@@ -89,17 +89,15 @@ setMatrix({...matrix,...tempMatrix});
     console.log(algorithms);
     switch (algorithms) {
       case '1':
-        drawTriangle(parameter.triangle)
+        drawTriangle(parameters.triangle)
         break;
       case '2':
-        drawCircle(parameter.circle)
+        drawCircle(parameters.circle)
         break;
     
       default:
         break;
     }
-    // drawTriangle(0,0,5,5,0,10)
-    // bresenhamCircunferencia(5,5,5);
   }
 
 
@@ -118,7 +116,7 @@ setMatrix({...matrix,...tempMatrix});
     algorithms,
     setAlgorithms,
     generateBtn,
-    parameter,
+    parameters,
     setParameters,
     delay,
     setDelay,

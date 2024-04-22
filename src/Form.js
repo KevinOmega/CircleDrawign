@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useGlobalContext } from './context'
 
 const Form = () => {
-    const {generateBtn,setColor,algorithms,setAlgorithms} = useGlobalContext();
+    const {generateBtn,setColor,algorithms,setAlgorithms,parameters,setParameters} = useGlobalContext();
     const [formColor,setFormColor] = useState([0,0,0]);
 
     const onColorChange = (e) => {
@@ -46,13 +46,41 @@ const Form = () => {
             value={algorithms}
             onChange={(e) => setAlgorithms(e.target.value)}>
             <option value={1}>Triangulo</option>
-            <option value={2}>Circunferencias</option>
+            <option value={2}>Circunferencia</option>
         </select>
       </div>
+      <div className="input-item">
+        {algorithms === '1' ? 
+        <>
+            <label className='form-label'>Parametros Triangulo</label>
+            <div className='flex-input'>
+                <label >x1:</label><input name="R" value={formColor[0]} onChange={(e) => onColorChange(e)} className="form-control" type="number" /> 
+                <label >x2:</label><input name="G" value={formColor[1]} onChange={(e) => onColorChange(e)} className="form-control" type="number" /> 
+                <label >x3:</label><input name="B" value={formColor[2]} onChange={(e) => onColorChange(e)} className="form-control" type="number" /> 
+            </div>
+            <div className='flex-input mt-2'>
+                <label >y1:</label><input name="R" value={formColor[0]} onChange={(e) => onColorChange(e)} className="form-control" type="number" /> 
+                <label >y2:</label><input name="G" value={formColor[1]} onChange={(e) => onColorChange(e)} className="form-control" type="number" /> 
+                <label >y3:</label><input name="B" value={formColor[2]} onChange={(e) => onColorChange(e)} className="form-control" type="number" /> 
+            </div>
+        </>
+            
+        :
+        <>
+            <label className='form-label'>Parametros Circunferencia</label>
+            <div className='flex-input'>
+                <label >xc:</label><input name="R" value={formColor[0]} onChange={(e) => onColorChange(e)} className="form-control" type="number" /> 
+                <label >yc:</label><input name="G" value={formColor[1]} onChange={(e) => onColorChange(e)} className="form-control" type="number" /> 
+                <label >r:</label><input name="B" value={formColor[2]} onChange={(e) => onColorChange(e)} className="form-control" type="number" /> 
+            </div>
+        </>
+        }
+      </div>
+      
       
       <div className="input-item">
         <label className='form-label'>RGB Color</label>
-        <div className='color-input'>
+        <div className='flex-input'>
             <label >R:</label><input name="R" value={formColor[0]} onChange={(e) => onColorChange(e)} className="form-control" type="number" /> 
             <label >G:</label><input name="G" value={formColor[1]} onChange={(e) => onColorChange(e)} className="form-control" type="number" /> 
             <label >B:</label><input name="B" value={formColor[2]} onChange={(e) => onColorChange(e)} className="form-control" type="number" /> 
