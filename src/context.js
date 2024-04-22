@@ -19,7 +19,7 @@ const AppProvider = ({ children }) => {
 
 
 
-  function dda(x1, y1, x2, y2) {
+  function dda(x1, y1, x2, y2,tempMatrix) {
     let dx = x2 - x1;
     let dy = y2 - y1;
     let steps = Math.max(Math.abs(dx), Math.abs(dy));
@@ -29,26 +29,25 @@ const AppProvider = ({ children }) => {
     let y = y1;
 
     for (let i = 0; i <= steps; i++) {
-        drawPoint(Math.round(x), Math.round(y));
+        drawPoint(Math.round(x), Math.round(y),tempMatrix);
         x += xInc;
         y += yInc;
     }
 }
 
 function drawTriangle(x1, y1, x2, y2, x3, y3) {
-    dda(x1, y1, x2, y2);
-    dda(x2, y2, x3, y3);
-    dda(x3, y3, x1, y1);
+    const tempMatrix = matrix;
+    dda(x1, y1, x2, y2,tempMatrix);
+    dda(x2, y2, x3, y3,tempMatrix);
+    dda(x3, y3, x1, y1,tempMatrix);
+
+    setMatrix({...matrix,...tempMatrix});
 }
 
 
-  const drawPoint = (x,y) => {
-    if(x < 0 || x > sizeMatrix - 1 || y < 0 || y > sizeMatrix - 1){
-        return;
-    }else{
-        setMatrix((currentMatrix) => {
-          return {...currentMatrix,x : {...currentMatrix.x, y : true}}
-        });
+  const drawPoint = (x,y,tempMatrix) => {
+    if(x >= 0 || x <= sizeMatrix - 1 || y >= 0 || y <= sizeMatrix - 1){
+        tempMatrix[x][y] = true;
     }
   }
 
@@ -60,6 +59,10 @@ function drawTriangle(x1, y1, x2, y2, x3, y3) {
     drawTriangle(0,0,5,5,0,10)
   }
 
+
+  useEffect(() => {
+    console.log(matrix,"matrix");
+  },[matrix])
 
   return (
     <AppContext.Provider value={{ 
