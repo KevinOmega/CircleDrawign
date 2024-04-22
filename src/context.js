@@ -9,10 +9,10 @@ const AppProvider = ({ children }) => {
   const [itemSize, setItemSize] = useState(10);
   const [sizeMatrix,setSizeMatrix] = useState(10);
   const [matrix,setMatrix] = useState(useGenerateMatrix(sizeMatrix));
-  const [algorithms,setAlgorithms] = useState(1);
+  const [algorithms,setAlgorithms] = useState('1');
   const [parameter,setParameters] = useState({
-    x1 : 0,x2 : sizeMatrix - 1,y1: 0, y2 : sizeMatrix - 1,
-    xc : Math.round(sizeMatrix/2),yc : Math.round(sizeMatrix/2), r : Math.round(sizeMatrix/2)
+    triangle : {x1 : 0,y1 : 0,x2 : Math.floor(sizeMatrix/2),y2 : Math.floor(sizeMatrix/2),x3 : 0,y3 : sizeMatrix-1,},
+    circle : {xc : Math.floor(sizeMatrix/2),yc : Math.floor(sizeMatrix/2), r: Math.floor(sizeMatrix/2)}
   })
   const [color,setColor] = useState("#fff");
   const [delay,setDelay] = useState(100);
@@ -36,7 +36,8 @@ const AppProvider = ({ children }) => {
     }
 }
 
-function drawTriangle(x1, y1, x2, y2, x3, y3) {
+function drawTriangle({x1, y1, x2, y2, x3, y3}) {
+  console.log(x1,x2,y3);
     const tempMatrix = matrix;
     dda(x1, y1, x2, y2,tempMatrix);
     dda(x2, y2, x3, y3,tempMatrix);
@@ -46,7 +47,7 @@ function drawTriangle(x1, y1, x2, y2, x3, y3) {
 }
 
 
-const bresenhamCircunferencia = async(xc,yc,r) => {
+const drawCircle = ({xc,yc,r}) => {
   const tempMatrix = matrix;
   let x = 0;
   let y = r;
@@ -85,8 +86,20 @@ setMatrix({...matrix,...tempMatrix});
   }
 
   const generateBtn = () => {
+    console.log(algorithms);
+    switch (algorithms) {
+      case '1':
+        drawTriangle(parameter.triangle)
+        break;
+      case '2':
+        drawCircle(parameter.circle)
+        break;
+    
+      default:
+        break;
+    }
     // drawTriangle(0,0,5,5,0,10)
-    bresenhamCircunferencia(5,5,5);
+    // bresenhamCircunferencia(5,5,5);
   }
 
 

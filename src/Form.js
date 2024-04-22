@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useGlobalContext } from './context'
 
 const Form = () => {
-    const {generateBtn,setColor} = useGlobalContext();
+    const {generateBtn,setColor,algorithms,setAlgorithms} = useGlobalContext();
     const [formColor,setFormColor] = useState([0,0,0]);
 
     const onColorChange = (e) => {
@@ -38,7 +38,18 @@ const Form = () => {
 
   return (
     <div className='form bg-light'>
-      <h2>Options</h2>
+      <h2>Opciones</h2>
+      <div className="input-item">
+        <select 
+            className="form-select" 
+            aria-label="Default select example" 
+            value={algorithms}
+            onChange={(e) => setAlgorithms(e.target.value)}>
+            <option value={1}>Triangulo</option>
+            <option value={2}>Circunferencias</option>
+        </select>
+      </div>
+      
       <div className="input-item">
         <label className='form-label'>RGB Color</label>
         <div className='color-input'>
@@ -48,7 +59,7 @@ const Form = () => {
             <button className='btn btn-outline-primary' onClick={onColorClick}>Set</button>
         </div>
       </div>
-      <button className='btn btn-primary' onClick={generateBtn}>Generate</button>
+      <button className='btn btn-primary' onClick={generateBtn}>Generar</button>
     </div>
   )
 }
