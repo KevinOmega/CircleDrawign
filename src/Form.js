@@ -5,6 +5,18 @@ const Form = () => {
     const {generateBtn,setColor,algorithms,setAlgorithms,parameters,setParameters} = useGlobalContext();
     const [formColor,setFormColor] = useState([0,0,0]);
 
+    const onParameterChange = (e) => {
+        
+        const name = e.target.name;
+        let value = e.target.value;
+
+        if(algorithms === '1'){
+            setParameters({...parameters, triangle : {...parameters.triangle,[name]: value}})
+        }else{
+            setParameters({...parameters, triangle : {...parameters.triangle,[name]: value}})
+        }
+    }
+
     const onColorChange = (e) => {
         let value = e.target.value;
         if(value > 255){
@@ -54,14 +66,14 @@ const Form = () => {
         <>
             <label className='form-label'>Parametros Triangulo</label>
             <div className='flex-input'>
-                <label >x1:</label><input name="R" value={formColor[0]} onChange={(e) => onColorChange(e)} className="form-control" type="number" /> 
-                <label >x2:</label><input name="G" value={formColor[1]} onChange={(e) => onColorChange(e)} className="form-control" type="number" /> 
-                <label >x3:</label><input name="B" value={formColor[2]} onChange={(e) => onColorChange(e)} className="form-control" type="number" /> 
+                <label >x1:</label><input name="x1" value={parameters.triangle.x1} onChange={(e) => onParameterChange(e)} className="form-control" type="number" /> 
+                <label >x2:</label><input name="x2" value={parameters.triangle.x2} onChange={(e) => onParameterChange(e)} className="form-control" type="number" /> 
+                <label >x3:</label><input name="x3" value={parameters.triangle.x3} onChange={(e) => onParameterChange(e)} className="form-control" type="number" /> 
             </div>
             <div className='flex-input mt-2'>
-                <label >y1:</label><input name="R" value={formColor[0]} onChange={(e) => onColorChange(e)} className="form-control" type="number" /> 
-                <label >y2:</label><input name="G" value={formColor[1]} onChange={(e) => onColorChange(e)} className="form-control" type="number" /> 
-                <label >y3:</label><input name="B" value={formColor[2]} onChange={(e) => onColorChange(e)} className="form-control" type="number" /> 
+                <label >y1:</label><input name="y1" value={parameters.triangle.y1} onChange={(e) => onParameterChange(e)} className="form-control" type="number" /> 
+                <label >y2:</label><input name="y2" value={parameters.triangle.y2} onChange={(e) => onParameterChange(e)} className="form-control" type="number" /> 
+                <label >y3:</label><input name="y3" value={parameters.triangle.y3} onChange={(e) => onParameterChange(e)} className="form-control" type="number" /> 
             </div>
         </>
             
