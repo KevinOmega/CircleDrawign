@@ -81,9 +81,9 @@ const Form = () => {
         <>
             <label className='form-label'>Parametros Circunferencia</label>
             <div className='flex-input'>
-                <label >xc:</label><input name="R" value={formColor[0]} onChange={(e) => onColorChange(e)} className="form-control" type="number" /> 
-                <label >yc:</label><input name="G" value={formColor[1]} onChange={(e) => onColorChange(e)} className="form-control" type="number" /> 
-                <label >r:</label><input name="B" value={formColor[2]} onChange={(e) => onColorChange(e)} className="form-control" type="number" /> 
+                <label >xc:</label><input name="xc" value={parameters.circle.xc} onChange={(e) => onParameterChange(e)} className="form-control" type="number" /> 
+                <label >yc:</label><input name="yc" value={parameters.circle.yc} onChange={(e) => onParameterChange(e)} className="form-control" type="number" /> 
+                <label >r:</label><input name="r" value={parameters.circle.r} onChange={(e) => onParameterChange(e)} className="form-control" type="number" /> 
             </div>
         </>
         }
