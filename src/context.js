@@ -46,10 +46,9 @@ function drawTriangle(x1, y1, x2, y2, x3, y3) {
     if(x < 0 || x > sizeMatrix - 1 || y < 0 || y > sizeMatrix - 1){
         return;
     }else{
-        const tempMatrix = matrix.splice();
-        tempMatrix[x][y] = true;
-        setMatrix(tempMatrix);
-        console.log(tempMatrix);
+        setMatrix((currentMatrix) => {
+          return {...currentMatrix,x : {...currentMatrix.x, y : true}}
+        });
     }
   }
 
