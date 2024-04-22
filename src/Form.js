@@ -8,12 +8,12 @@ const Form = () => {
     const onParameterChange = (e) => {
         
         const name = e.target.name;
-        let value = e.target.value;
+        let value = Number(e.target.value);
 
         if(algorithms === '1'){
             setParameters({...parameters, triangle : {...parameters.triangle,[name]: value}})
         }else{
-            setParameters({...parameters, triangle : {...parameters.triangle,[name]: value}})
+            setParameters({...parameters, circle : {...parameters.circle,[name]: value}})
         }
     }
 

@@ -37,7 +37,7 @@ const AppProvider = ({ children }) => {
 }
 
 function drawTriangle({x1, y1, x2, y2, x3, y3}) {
-  console.log(x1,x2,y3);
+  console.log(x1,x2,x3);
     const tempMatrix = matrix;
     dda(x1, y1, x2, y2,tempMatrix);
     dda(x2, y2, x3, y3,tempMatrix);
