@@ -40,7 +40,7 @@ const Form = () => {
     <div className='form bg-light'>
       <h2>Options</h2>
       <div className="input-item">
-        <label className='form-label'>Color</label>
+        <label className='form-label'>RGB Color</label>
         <div className='color-input'>
             <label >R:</label><input name="R" value={formColor[0]} onChange={(e) => onColorChange(e)} className="form-control" type="number" /> 
             <label >G:</label><input name="G" value={formColor[1]} onChange={(e) => onColorChange(e)} className="form-control" type="number" /> 

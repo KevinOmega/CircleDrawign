@@ -46,8 +46,36 @@ function drawTriangle(x1, y1, x2, y2, x3, y3) {
 }
 
 
+const bresenhamCircunferencia = async(xc,yc,r) => {
+  const tempMatrix = matrix;
+  let x = 0;
+  let y = r;
+  let d = 3 - 2 * r;
+  while (x <= y) {
+    
+      drawPoint(xc + x,yc + y,tempMatrix);
+      drawPoint(xc + y,yc + x,tempMatrix);
+      drawPoint(xc - x,yc + y,tempMatrix);
+      drawPoint(xc - y,yc + x,tempMatrix);
+      drawPoint(xc - x,yc - y,tempMatrix);
+      drawPoint(xc - y,yc - x,tempMatrix);
+      drawPoint(xc + x,yc - y,tempMatrix);
+      drawPoint(xc + y,yc - x,tempMatrix);
+
+      if (d <= 0) {
+        d += 4 * x + 6;
+    } else {
+        y--;
+        d += 4 * (x - y) + 10;
+    }
+    x++;
+  }
+setMatrix({...matrix,...tempMatrix});
+}
+
+
   const drawPoint = (x,y,tempMatrix) => {
-    if(x >= 0 || x <= sizeMatrix - 1 || y >= 0 || y <= sizeMatrix - 1){
+    if(x >= 0 && x <= sizeMatrix - 1 && y >= 0 && y <= sizeMatrix - 1){
         tempMatrix[x][y] = true;
     }
   }
@@ -57,7 +85,8 @@ function drawTriangle(x1, y1, x2, y2, x3, y3) {
   }
 
   const generateBtn = () => {
-    drawTriangle(0,0,5,5,0,10)
+    // drawTriangle(0,0,5,5,0,10)
+    bresenhamCircunferencia(5,5,5);
   }
 
 
