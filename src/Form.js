@@ -12,7 +12,7 @@ const Form = () => {
     options,
     setOptions,
   } = useGlobalContext();
-  const [formColor, setFormColor] = useState([0, 0, 0]);
+  const [formColor, setFormColor] = useState([255, 255, 255]);
 
   const onParameterChange = (e) => {
     const name = e.target.name;

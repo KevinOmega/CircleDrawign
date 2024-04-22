@@ -12,13 +12,13 @@ const AppProvider = ({ children }) => {
     triangle : {x1 : 0,y1 : 0,x2 : Math.floor(sizeMatrix/2),y2 : Math.floor(sizeMatrix/2),x3 : 0,y3 : sizeMatrix-1,},
     circle : {xc : Math.floor(sizeMatrix/2),yc : Math.floor(sizeMatrix/2), r: Math.floor(sizeMatrix/2)}
   })
-  const [options,setOptions] = useState({thickness : 5,segmentation : 0})
+  const [options,setOptions] = useState({thickness : 0,segmentation : {draw : 2, space : 5}})
   const [color,setColor] = useState("#fff");
 
 
 
 
-  function dda(x1, y1, x2, y2,tempMatrix) {
+  function dda(x1, y1, x2, y2,tempMatrix,pointIndex) {
     let dx = x2 - x1;
     let dy = y2 - y1;
     let steps = Math.max(Math.abs(dx), Math.abs(dy));
@@ -28,7 +28,8 @@ const AppProvider = ({ children }) => {
     let y = y1;
 
     for (let i = 0; i <= steps; i++) {
-        drawPoint(Math.round(x), Math.round(y),tempMatrix);
+        drawPoint(Math.round(x), Math.round(y),tempMatrix,pointIndex);
+        pointIndex++;
         x += xInc;
         y += yInc;
     }
@@ -37,9 +38,10 @@ const AppProvider = ({ children }) => {
 function drawTriangle({x1, y1, x2, y2, x3, y3}) {
   console.log(x1,x2,x3);
     const tempMatrix = matrix;
-    dda(x1, y1, x2, y2,tempMatrix);
-    dda(x2, y2, x3, y3,tempMatrix);
-    dda(x3, y3, x1, y1,tempMatrix);
+    const pointIndex = 0;
+    dda(x1, y1, x2, y2,tempMatrix,pointIndex);
+    dda(x2, y2, x3, y3,tempMatrix,pointIndex);
+    dda(x3, y3, x1, y1,tempMatrix,pointIndex);
 
     setMatrix({...matrix,...tempMatrix});
 }
@@ -73,8 +75,10 @@ setMatrix({...matrix,...tempMatrix});
 }
 
 
-  const drawPoint = (x,y,tempMatrix) => {
+  const drawPoint = (x,y,tempMatrix,pointIndex) => {
     if(x >= 0 && x <= sizeMatrix - 1 && y >= 0 && y <= sizeMatrix - 1){
+      let {draw,space} = options.segmentation;
+      if(space === 0 || ((pointIndex+1) % (draw + space) >= space)){
         tempMatrix[x][y] = true;
         if(options.thickness > 0){
           for (let index = 1; index <= options.thickness; index++) {
@@ -93,6 +97,8 @@ setMatrix({...matrix,...tempMatrix});
             
           }
         }
+      }
+        
     }
   }
 
