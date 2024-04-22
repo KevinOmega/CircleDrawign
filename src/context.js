@@ -1,5 +1,4 @@
 import { createContext, useContext, useState } from "react";
-import { useGetColor } from "./color";
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
@@ -16,7 +15,6 @@ const AppProvider = ({ children }) => {
   })
   const [delay,setDelay] = useState(100);
 
-  const colorPalette = useGetColor();
 
   const drawPoint = (tempMatrix,x,y,color) => {
     if(x < 0 || x > sizeMatrix - 1 || y < 0 || y > sizeMatrix - 1){
