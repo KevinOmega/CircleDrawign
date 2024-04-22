@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { useGenerateMatrix } from "./hooks/generateMatrix";
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
@@ -7,13 +8,14 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
   const [itemSize, setItemSize] = useState(10);
   const [sizeMatrix,setSizeMatrix] = useState(10);
-  const [matrix,setMatrix] = useState({});
+  const [matrix,setMatrix] = useState(useGenerateMatrix(sizeMatrix));
   const [algorithms,setAlgorithms] = useState(1);
   const [parameter,setParameters] = useState({
     x1 : 0,x2 : sizeMatrix - 1,y1: 0, y2 : sizeMatrix - 1,
     xc : Math.round(sizeMatrix/2),yc : Math.round(sizeMatrix/2), r : Math.round(sizeMatrix/2)
   })
   const [delay,setDelay] = useState(100);
+
 
 
 
@@ -46,8 +48,8 @@ function drawTriangle(x1, y1, x2, y2, x3, y3) {
     }else{
         const tempMatrix = matrix.splice();
         tempMatrix[x][y] = true;
-        setMatrix(tempMatrix)
-        console.log(tempMatrix)
+        setMatrix(tempMatrix);
+        console.log(tempMatrix);
     }
   }
 
