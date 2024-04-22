@@ -9,7 +9,6 @@ const Grid = ({n}) => {
     useEffect(() => {
         const gridSize = gridRef.current.getBoundingClientRect().height;
         const boxSize = Math.floor(gridSize/ Number(n));
-        console.log(boxSize);
         setItemSize(boxSize);
     },[n, setItemSize])
   return (
