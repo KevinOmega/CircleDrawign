@@ -28,9 +28,7 @@
 }
 
 .item{
-  border: 1px solid #ccc;
-  height: 1px;
-  width: 1px;
+  border: 0.1px solid #aaa9;
 }
 
 .form{

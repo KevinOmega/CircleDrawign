@@ -52,6 +52,7 @@ const Form = () => {
     <div className='form bg-light'>
       <h2>Opciones</h2>
       <div className="input-item">
+        <label className='form-label'>Elejir tipo de grafica</label>
         <select 
             className="form-select" 
             aria-label="Default select example" 
