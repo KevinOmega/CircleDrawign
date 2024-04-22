@@ -12,7 +12,7 @@ const AppProvider = ({ children }) => {
     triangle : {x1 : 0,y1 : 0,x2 : Math.floor(sizeMatrix/2),y2 : Math.floor(sizeMatrix/2),x3 : 0,y3 : sizeMatrix-1,},
     circle : {xc : Math.floor(sizeMatrix/2),yc : Math.floor(sizeMatrix/2), r: Math.floor(sizeMatrix/2)}
   })
-  const [options,setOptions] = useState({thickness : 0,segmentation : {draw : 2, space : 5}})
+  const [options,setOptions] = useState({thickness : 0,segmentation : {draw : 1, space : 0}})
   const [color,setColor] = useState("#fff");
 
 
@@ -36,9 +36,8 @@ const AppProvider = ({ children }) => {
 }
 
 function drawTriangle({x1, y1, x2, y2, x3, y3}) {
-  console.log(x1,x2,x3);
     const tempMatrix = matrix;
-    const pointIndex = 0;
+    let pointIndex = 0;
     dda(x1, y1, x2, y2,tempMatrix,pointIndex);
     dda(x2, y2, x3, y3,tempMatrix,pointIndex);
     dda(x3, y3, x1, y1,tempMatrix,pointIndex);
@@ -49,19 +48,21 @@ function drawTriangle({x1, y1, x2, y2, x3, y3}) {
 
 const drawCircle = ({xc,yc,r}) => {
   const tempMatrix = matrix;
+  let pointIndex = 0;
   let x = 0;
   let y = r;
   let d = 3 - 2 * r;
   while (x <= y) {
     
-      drawPoint(xc + x,yc + y,tempMatrix);
-      drawPoint(xc + y,yc + x,tempMatrix);
-      drawPoint(xc - x,yc + y,tempMatrix);
-      drawPoint(xc - y,yc + x,tempMatrix);
-      drawPoint(xc - x,yc - y,tempMatrix);
-      drawPoint(xc - y,yc - x,tempMatrix);
-      drawPoint(xc + x,yc - y,tempMatrix);
-      drawPoint(xc + y,yc - x,tempMatrix);
+      drawPoint(xc + x,yc + y,tempMatrix,pointIndex);
+      drawPoint(xc + y,yc + x,tempMatrix,pointIndex);
+      drawPoint(xc - x,yc + y,tempMatrix,pointIndex);
+      drawPoint(xc - y,yc + x,tempMatrix,pointIndex);
+      drawPoint(xc - x,yc - y,tempMatrix,pointIndex);
+      drawPoint(xc - y,yc - x,tempMatrix,pointIndex);
+      drawPoint(xc + x,yc - y,tempMatrix,pointIndex);
+      drawPoint(xc + y,yc - x,tempMatrix,pointIndex);
+      pointIndex++;
 
       if (d <= 0) {
         d += 4 * x + 6;
@@ -78,7 +79,7 @@ setMatrix({...matrix,...tempMatrix});
   const drawPoint = (x,y,tempMatrix,pointIndex) => {
     if(x >= 0 && x <= sizeMatrix - 1 && y >= 0 && y <= sizeMatrix - 1){
       let {draw,space} = options.segmentation;
-      if(space === 0 || ((pointIndex+1) % (draw + space) >= space)){
+      if(space === 0 || (pointIndex % (draw + space) < draw)){
         tempMatrix[x][y] = true;
         if(options.thickness > 0){
           for (let index = 1; index <= options.thickness; index++) {
@@ -107,7 +108,6 @@ setMatrix({...matrix,...tempMatrix});
   }
 
   const generateBtn = () => {
-    console.log(algorithms);
     switch (algorithms) {
       case '1':
         drawTriangle(parameters.triangle)

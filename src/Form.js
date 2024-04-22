@@ -37,8 +37,25 @@ const Form = () => {
     if(value < 0){
         value = 0;
     }
+    if(value > 10){
+        value = 10
+    }
 
     setOptions({...options,[name] : value});
+  }
+
+  const onSegmentationChange = (e) => {
+    let value = Number(e.target.value);
+    const name =  e.target.name;
+
+    if(value < 0){
+        value = 0
+    }
+    if(value > 10){
+        value = 10
+    }
+
+    setOptions({...options,segmentation : {...options.segmentation,[name] : value}})
   }
 
   const onColorChange = (e) => {
@@ -220,11 +237,24 @@ const Form = () => {
             className="form-control"
             type="number"
           />
-          <label>Segmentacion:</label>
+        </div>
+      </div>
+      <div className="input-item">
+      <label className="form-label">Segmentacion:</label>
+      <div className="flex-input">
+          <label>Linea:</label>
           <input
-            name="G"
-            value={formColor[1]}
-            onChange={(e) => onColorChange(e)}
+            name="draw"
+            value={options.segmentation.draw}
+            onChange={(e) => onSegmentationChange(e)}
+            className="form-control"
+            type="number"
+          />
+          <label>Espacio:</label>
+          <input
+            name="space"
+            value={options.segmentation.space}
+            onChange={(e) => onSegmentationChange(e)}
             className="form-control"
             type="number"
           />
