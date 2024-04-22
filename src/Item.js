@@ -3,7 +3,7 @@ import { useGlobalContext } from './context';
 
 const Item = ({id_row,id_col}) => {
 
-    const {itemSize,matrix} = useGlobalContext();
+    const {itemSize,matrix,color} = useGlobalContext();
     const [paint,setPaint] = useState(false);
 
 
@@ -21,7 +21,7 @@ const Item = ({id_row,id_col}) => {
   return (
     <div className='item' style={{width: itemSize,
         height: itemSize, 
-        backgroundColor: `${paint ? "blue" : "transparent"}`}}>
+        backgroundColor: `${paint ? color : "transparent"}`}}>
     </div>
   )
 }

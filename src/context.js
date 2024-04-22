@@ -14,6 +14,7 @@ const AppProvider = ({ children }) => {
     x1 : 0,x2 : sizeMatrix - 1,y1: 0, y2 : sizeMatrix - 1,
     xc : Math.round(sizeMatrix/2),yc : Math.round(sizeMatrix/2), r : Math.round(sizeMatrix/2)
   })
+  const [color,setColor] = useState("#fff");
   const [delay,setDelay] = useState(100);
 
 
@@ -80,6 +81,8 @@ function drawTriangle(x1, y1, x2, y2, x3, y3) {
     delay,
     setDelay,
     clean,
+    color,
+    setColor
      }}>
       {children}
     </AppContext.Provider>

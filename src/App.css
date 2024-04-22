@@ -32,3 +32,29 @@
   height: 1px;
   width: 1px;
 }
+
+.form{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 2rem ;
+  gap: 1rem;
+}
+
+.input-item{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.color-input{
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+
+}
+
+.color-input input{
+  width: 5rem;
+}
