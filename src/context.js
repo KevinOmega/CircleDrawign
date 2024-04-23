@@ -46,6 +46,7 @@ function drawTriangle({x1, y1, x2, y2, x3, y3}) {
 }
 
 
+
 const drawCircle = ({xc,yc,r}) => {
   const tempMatrix = matrix;
   let pointIndex = 0;
@@ -75,8 +76,37 @@ const drawCircle = ({xc,yc,r}) => {
 setMatrix({...matrix,...tempMatrix});
 }
 
+const moveMatrix = (direction) => {
+  clean();
+  switch (direction) {
+    case 'UP':
+      if(algorithms === '1'){
+        setParameters({...parameters,y1 : parameters.y1 + 1, y2: parameters.y2 + 1, y3 : parameters.y3 + 1});
+      }
+      break;
+      case 'RIGHT':
+      if(algorithms === '1'){
+        setParameters({...parameters,x1 : parameters.x1 + 1, x2: parameters.x2 + 1, x3 : parameters.x3 + 1});
+      }
+      break;
+      case 'DOWN':
+      if(algorithms === '1'){
+        setParameters({...parameters,y1 : parameters.y1 - 1, y2: parameters.y2 - 1, y3 : parameters.y3 - 1});
+      }
+      break;
+      case 'LEFT':
+      if(algorithms === '1'){
+        setParameters({...parameters,x1 : parameters.x1 - 1, x2: parameters.x2 - 1, x3 : parameters.x3 - 1});
+      }
+      break;
+      
+    default:
+      break;
+  }
+  generateBtn();
+}
 
-  const drawPoint = (x,y,tempMatrix,pointIndex) => {
+const drawPoint = (x,y,tempMatrix,pointIndex) => {
     if(x >= 0 && x <= sizeMatrix - 1 && y >= 0 && y <= sizeMatrix - 1){
       let {draw,space} = options.segmentation;
       if(space === 0 || (pointIndex % (draw + space) < draw)){
@@ -103,8 +133,10 @@ setMatrix({...matrix,...tempMatrix});
     }
   }
 
-  const clean = () => {
+  const defatultMatrix = useGenerateMatrix(sizeMatrix);
 
+  const clean = () => {
+    setMatrix(defatultMatrix);
   }
 
   const generateBtn = () => {
