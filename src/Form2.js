@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { FaArrowAltCircleUp,FaArrowAltCircleRight,FaArrowAltCircleLeft,FaArrowAltCircleDown } from "react-icons/fa";
+
 
 const Form2 = () => {
     const [formColor,setFormColor] = useState([255,255,255]);
@@ -71,6 +73,14 @@ const Form2 = () => {
             Rellenar
           </button>
         </div>
+      </div>
+      <div className="controllers">
+            <span><FaArrowAltCircleUp/></span>
+        <div className="x-controllers">
+            <span><FaArrowAltCircleLeft/></span>
+            <span><FaArrowAltCircleRight/></span>
+        </div>
+            <span><FaArrowAltCircleDown/></span>
       </div>
       
       <button className="btn btn-dark" onClick={limpiarBtn}>
