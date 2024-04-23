@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import { FaArrowAltCircleUp,FaArrowAltCircleRight,FaArrowAltCircleLeft,FaArrowAltCircleDown } from "react-icons/fa";
+import { useGlobalContext } from './context';
 
 
 const Form2 = () => {
     const [formColor,setFormColor] = useState([255,255,255]);
+
+    const {moveMatrix} = useGlobalContext();
 
     const limpiarBtn = () => {
 
@@ -75,12 +78,12 @@ const Form2 = () => {
         </div>
       </div>
       <div className="controllers">
-            <span><FaArrowAltCircleUp/></span>
+            <span onClick={() => moveMatrix("UP")}><FaArrowAltCircleUp/></span>
         <div className="x-controllers">
-            <span><FaArrowAltCircleLeft/></span>
-            <span><FaArrowAltCircleRight/></span>
+            <span onClick={() => moveMatrix("LEFT")}><FaArrowAltCircleLeft/></span>
+            <span onClick={() => moveMatrix("RIGHT")}><FaArrowAltCircleRight/></span>
         </div>
-            <span><FaArrowAltCircleDown/></span>
+            <span onClick={() => moveMatrix("DOWN")}><FaArrowAltCircleDown/></span>
       </div>
       
       <button className="btn btn-dark" onClick={limpiarBtn}>

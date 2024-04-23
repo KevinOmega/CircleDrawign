@@ -6,9 +6,9 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
   const [itemSize, setItemSize] = useState(10);
   const [sizeMatrix,setSizeMatrix] = useState(150);
-  const [matrix,setMatrix] = useState(useGenerateMatrix(sizeMatrix));
+  let [matrix,setMatrix] = useState(useGenerateMatrix(sizeMatrix));
   const [algorithms,setAlgorithms] = useState('1');
-  const [parameters,setParameters] = useState({
+  let [parameters,setParameters] = useState({
     triangle : {x1 : 0,y1 : 0,x2 : Math.floor(sizeMatrix/2),y2 : Math.floor(sizeMatrix/2),x3 : 0,y3 : sizeMatrix-1,},
     circle : {xc : Math.floor(sizeMatrix/2),yc : Math.floor(sizeMatrix/2), r: Math.floor(sizeMatrix/2)}
   })
@@ -78,26 +78,43 @@ setMatrix({...matrix,...tempMatrix});
 }
 
 const moveMatrix = (direction) => {
-  clean();
+  console.log("moving")
+  matrix = defatultMatrix;
   switch (direction) {
     case 'UP':
       if(algorithms === '1'){
-        setParameters({...parameters,y1 : parameters.y1 + 1, y2: parameters.y2 + 1, y3 : parameters.y3 + 1});
+        setParameters({...parameters,triangle : {...parameters.triangle,y1 : parameters.triangle.y1 - 1, y2: parameters.triangle.y2 - 1, y3 : parameters.triangle.y3 - 1}});
+        parameters = {...parameters,triangle : {...parameters.triangle,y1 : parameters.triangle.y1 - 1, y2: parameters.triangle.y2 - 1, y3 : parameters.triangle.y3 - 1}}
+      }else{
+        setParameters({...parameters,circle : {...parameters.circle,yc : parameters.circle.yc - 1}})
+        parameters = {...parameters,circle : {...parameters.circle,yc : parameters.circle.yc - 1}}
       }
       break;
       case 'RIGHT':
       if(algorithms === '1'){
-        setParameters({...parameters,x1 : parameters.x1 + 1, x2: parameters.x2 + 1, x3 : parameters.x3 + 1});
+        setParameters({...parameters,triangle : {...parameters.triangle,x1 : parameters.triangle.x1 + 1, x2: parameters.triangle.x2 + 1, x3 : parameters.triangle.x3 + 1}});
+        parameters = {...parameters,triangle : {...parameters.triangle,x1 : parameters.triangle.x1 + 1, x2: parameters.triangle.x2 + 1, x3 : parameters.triangle.x3 + 1}}
+      }else{
+        setParameters({...parameters,circle : {...parameters.circle,xc : parameters.circle.xc + 1}})
+        parameters = {...parameters,circle : {...parameters.circle,xc : parameters.circle.xc + 1}}
       }
       break;
       case 'DOWN':
       if(algorithms === '1'){
-        setParameters({...parameters,y1 : parameters.y1 - 1, y2: parameters.y2 - 1, y3 : parameters.y3 - 1});
+        setParameters({...parameters,triangle : {...parameters.triangle,y1 : parameters.triangle.y1 + 1, y2: parameters.triangle.y2 + 1, y3 : parameters.triangle.y3 + 1}});
+        parameters = {...parameters,triangle : {...parameters.triangle,y1 : parameters.triangle.y1 + 1, y2: parameters.triangle.y2 + 1, y3 : parameters.triangle.y3 + 1}}
+      }else{
+        setParameters({...parameters,circle : {...parameters.circle,yc : parameters.circle.yc + 1}})
+        parameters = {...parameters,circle : {...parameters.circle,yc : parameters.circle.yc + 1}}
       }
       break;
       case 'LEFT':
       if(algorithms === '1'){
-        setParameters({...parameters,x1 : parameters.x1 - 1, x2: parameters.x2 - 1, x3 : parameters.x3 - 1});
+        setParameters({...parameters,triangle : {...parameters.triangle,x1 : parameters.triangle.x1 - 1, x2: parameters.triangle.x2 - 1, x3 : parameters.triangle.x3 - 1}});
+        parameters = {...parameters,triangle : {...parameters.triangle,x1 : parameters.triangle.x1 - 1, x2: parameters.triangle.x2 - 1, x3 : parameters.triangle.x3 - 1}}
+      }else{
+        setParameters({...parameters,circle : {...parameters.circle,xc : parameters.circle.xc - 1}})
+        parameters = {...parameters,circle : {...parameters.circle,xc : parameters.circle.xc - 1}}
       }
       break;
       
@@ -137,12 +154,13 @@ const drawPoint = (x,y,tempMatrix,pointIndex) => {
   const defatultMatrix = useGenerateMatrix(sizeMatrix);
 
   const clean = () => {
-    setMatrix(defatultMatrix);
+    setMatrix(() => defatultMatrix);
   }
 
   const generateBtn = () => {
     switch (algorithms) {
       case '1':
+        console.log(parameters.triangle);
         drawTriangle(parameters.triangle)
         break;
       case '2':
@@ -154,11 +172,6 @@ const drawPoint = (x,y,tempMatrix,pointIndex) => {
     }
     setIsGenerated(true);
   }
-
-
-  useEffect(() => {
-    console.log(matrix,"matrix");
-  },[matrix])
 
   return (
     <AppContext.Provider value={{ 
@@ -179,7 +192,8 @@ const drawPoint = (x,y,tempMatrix,pointIndex) => {
     options,
     setOptions,
     isGenerated,
-    setIsGenerated
+    setIsGenerated,
+    moveMatrix
      }}>
       {children}
     </AppContext.Provider>
