@@ -14,6 +14,7 @@ const AppProvider = ({ children }) => {
   })
   const [options,setOptions] = useState({thickness : 0,segmentation : {draw : 1, space : 0}})
   const [color,setColor] = useState("#fff");
+  const [isGenerated,setIsGenerated] = useState(false);
 
 
 
@@ -151,6 +152,7 @@ const drawPoint = (x,y,tempMatrix,pointIndex) => {
       default:
         break;
     }
+    setIsGenerated(true);
   }
 
 
@@ -175,7 +177,9 @@ const drawPoint = (x,y,tempMatrix,pointIndex) => {
     color,
     setColor,
     options,
-    setOptions
+    setOptions,
+    isGenerated,
+    setIsGenerated
      }}>
       {children}
     </AppContext.Provider>
